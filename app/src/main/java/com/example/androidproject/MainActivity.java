@@ -1,6 +1,5 @@
 package com.example.androidproject;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -9,7 +8,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,16 +19,16 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements OnTimeSetListener {
 
-    private TextView textView;
+    private TextView AlarmTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textViewAlarm);
+        AlarmTextView = findViewById(R.id.textViewAlarmStatus);
 
-        Button buttonTimePicker = findViewById(R.id.button_timepicker);
+        Button buttonTimePicker = findViewById(R.id.button_setAlarm);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
     }
 
     private void updateTimeText(Calendar calendar) {
-        String timeText = "Alarm set for: ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
+        String time = "Alarm is set for: ";
+        time += DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
 
-        textView.setText(timeText);
+        AlarmTextView.setText(time);
     }
 
     private void startAlarm(Calendar calendar) {
@@ -84,6 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         alarmManager.cancel(pendingIntent);
-        textView.setText("alarm cancelled");
+        AlarmTextView.setText("Alarm was cancelled");
     }
 }
