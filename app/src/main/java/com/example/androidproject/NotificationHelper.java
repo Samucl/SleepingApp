@@ -1,13 +1,16 @@
 package com.example.androidproject;
 
 import android.annotation.TargetApi;
-import android.app.Notification;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.media.MediaPlayer;
+
+import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 
@@ -17,6 +20,8 @@ public class NotificationHelper extends ContextWrapper {
     public static final String channel_name = "channel name";
 
     private NotificationManager manager;
+
+
 
     public NotificationHelper(Context base) {
         super(base);
@@ -28,6 +33,11 @@ public class NotificationHelper extends ContextWrapper {
     @TargetApi(Build.VERSION_CODES.O)
     public void createChannel() {
             NotificationChannel channel = new NotificationChannel(channel_ID, channel_name, NotificationManager.IMPORTANCE_HIGH);
+
+            Uri notification = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + this.getPackageName() + "/" + R.raw.rooster_alarm);
+            MediaPlayer player = MediaPlayer.create(this, notification);
+            player.setLooping(true);
+            player.start();
 
             getManager().createNotificationChannel(channel);
     }
@@ -41,6 +51,7 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getNotification() {
+
         return new NotificationCompat.Builder(getApplicationContext(), channel_ID)
                 .setContentTitle("Herätyskello")
                 .setContentText("Toimii")
