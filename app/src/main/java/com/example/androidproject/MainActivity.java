@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -82,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         alarmManager.cancel(pendingIntent);
-        AlarmTextView.setText("Alarm was cancelled");
+        Toast.makeText(MainActivity.this, "Alarm was cancelled", Toast.LENGTH_SHORT).show();
+
+
+        AlarmTextView.setText("Alarm is not set");
+
+
     }
+
 }

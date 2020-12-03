@@ -7,10 +7,14 @@ import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,8 +24,7 @@ public class NotificationHelper extends ContextWrapper {
     public static final String channel_name = "channel name";
 
     private NotificationManager manager;
-
-
+    public MediaPlayer player;
 
     public NotificationHelper(Context base) {
         super(base);
@@ -35,11 +38,19 @@ public class NotificationHelper extends ContextWrapper {
             NotificationChannel channel = new NotificationChannel(channel_ID, channel_name, NotificationManager.IMPORTANCE_HIGH);
 
             Uri notification = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + this.getPackageName() + "/" + R.raw.rooster_alarm);
-            MediaPlayer player = MediaPlayer.create(this, notification);
+            player = MediaPlayer.create(this, notification);
             player.setLooping(true);
             player.start();
 
             getManager().createNotificationChannel(channel);
+    }
+
+    public void stopSoundAlarm() {
+            if (player != null) {
+                player.stop();
+                player.release();
+                player = null;
+            }
     }
 
     public NotificationManager getManager() {
@@ -54,7 +65,7 @@ public class NotificationHelper extends ContextWrapper {
 
         return new NotificationCompat.Builder(getApplicationContext(), channel_ID)
                 .setContentTitle("Herätyskello")
-                .setContentText("Toimii")
+                .setContentText("Herätys!")
                 .setSmallIcon(R.drawable.ic_baseline_add_alarm_24);
     }
 }
