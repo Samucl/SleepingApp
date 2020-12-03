@@ -21,6 +21,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements OnTimeSetListener {
 
     private TextView AlarmTextView;
+    private Button toNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
             @Override
             public void onClick(View v) {
                 cancelAlarm();
+            }
+        });
+
+        toNotes = (Button) findViewById(R.id.toNotes);
+        toNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NotesActivity.class);
+                startActivity(intent);
             }
         });
     }

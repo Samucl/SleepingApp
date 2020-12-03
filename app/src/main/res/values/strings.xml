@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android project</string>
+    <string name="app_name">Uni Sovellus</string>
     <string name="set_alarm">Set Alarm</string>
     <string name="cancel_alarm">Cancel Alarm</string>
     <string name="no_alarm">Alarm is not set</string>
