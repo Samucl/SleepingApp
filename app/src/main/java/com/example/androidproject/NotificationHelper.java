@@ -1,21 +1,15 @@
 package com.example.androidproject;
 
 import android.annotation.TargetApi;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.media.MediaPlayer;
-
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import android.os.CountDownTimer;
 import androidx.core.app.NotificationCompat;
 
 public class NotificationHelper extends ContextWrapper {
@@ -37,20 +31,29 @@ public class NotificationHelper extends ContextWrapper {
     public void createChannel() {
             NotificationChannel channel = new NotificationChannel(channel_ID, channel_name, NotificationManager.IMPORTANCE_HIGH);
 
+            CountDownTimer timer = new CountDownTimer(30000,1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    if (player.isPlaying()) {
+                        player.stop();
+                        player.release();
+                    }
+                }
+            };
+
             Uri notification = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + this.getPackageName() + "/" + R.raw.rooster_alarm);
             player = MediaPlayer.create(this, notification);
             player.setLooping(true);
             player.start();
+            timer.start();
 
             getManager().createNotificationChannel(channel);
-    }
 
-    public void stopSoundAlarm() {
-            if (player != null) {
-                player.stop();
-                player.release();
-                player = null;
-            }
     }
 
     public NotificationManager getManager() {

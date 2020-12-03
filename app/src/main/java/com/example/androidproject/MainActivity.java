@@ -85,10 +85,6 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
         alarmManager.cancel(pendingIntent);
         Toast.makeText(MainActivity.this, "Alarm was cancelled", Toast.LENGTH_SHORT).show();
 
-
         AlarmTextView.setText("Alarm is not set");
-
-
     }
-
 }
