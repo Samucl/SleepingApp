@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
 
     private TextView AlarmTextView;
     private Button toNotes;
+    private Button toSleep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity implements OnTimeSetListener
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NotesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        toSleep = (Button) findViewById(R.id.toSleep);
+        toSleep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SleepActivity.class);
                 startActivity(intent);
             }
         });

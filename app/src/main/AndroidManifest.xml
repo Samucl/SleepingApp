@@ -11,6 +11,8 @@
         android:theme="@style/Theme.AndroidProject">
         <activity android:name=".NotesActivity"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".SleepActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
