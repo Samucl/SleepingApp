@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject">
-        <activity android:name=".NotesActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".SleepActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".NotesActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SleepActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AlarmActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlertReceiver"></receiver>
+        <receiver android:name=".AlertReceiver" />
     </application>
 
 </manifest>
