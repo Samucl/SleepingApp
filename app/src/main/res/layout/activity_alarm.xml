@@ -3,25 +3,11 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#151515"
+    android:background="@drawable/gradient_bg"
     tools:context=".AlarmActivity">
-
-    <TextView
-        android:id="@+id/textViewAlarmStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/button_setAlarm"
-        android:layout_centerHorizontal="true"
-        android:text="@string/no_alarm"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
 
     <Button
         android:id="@+id/button_setAlarm"
@@ -30,12 +16,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/set_alarm"
-        android:textSize="24sp"
+        android:textSize="36sp"
+        app:backgroundTint="@color/tumma"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.412" />
+        app:layout_constraintVertical_bias="0.467" />
 
     <Button
         android:id="@+id/button_cancel"
@@ -43,12 +30,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/button_setAlarm"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
         android:text="@string/cancel_alarm"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="#780000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/button_setAlarm"></Button>
+
+    <TextView
+        android:id="@+id/textViewAlarmStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_setAlarm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/no_alarm"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_setAlarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

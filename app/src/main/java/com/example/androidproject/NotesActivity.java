@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class NotesActivity extends AppCompatActivity {
-    private static final String TAG = "NotesActivity";
 
     private DatePickerDialog.OnDateSetListener DataSetListener;
     private EditText NoteText;
@@ -43,6 +42,12 @@ public class NotesActivity extends AppCompatActivity {
         DateButton = (Button) findViewById(R.id.displayDateButton);
         DeleteNote = (Button) findViewById(R.id.deleteNote);
 
+        //Makes all of the below invisible until a date has been chosen
+        DeleteNote.setVisibility(View.INVISIBLE);
+        NoteText.setVisibility(View.INVISIBLE);
+        SaveNote.setVisibility(View.INVISIBLE);
+
+        //Opens up a DatePicker when clicking "Choose a date"
         DateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +62,7 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
+        //Listens for data from DatePicker and adds it to a variable "date"
         DataSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -65,9 +71,16 @@ public class NotesActivity extends AppCompatActivity {
                 DateButton.setText(date);
                 DisplayNote.setText(notes.get(date));
 
+                //After date is chosen all the below comes visible
+                DeleteNote.setVisibility(View.VISIBLE);
+                NoteText.setVisibility(View.VISIBLE);
+                SaveNote.setVisibility(View.VISIBLE);
+
+                //Saves the note to a selected day and adds it to a TextView field. Also clears the EditText.
                 SaveNote.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //If the EditText isn't empty it saves its content to a HashMap and displays it in "DisplayNote"
                         if(!NoteText.getText().toString().isEmpty()){
                             notes.put(date, NoteText.getText().toString());
                         }
@@ -77,6 +90,7 @@ public class NotesActivity extends AppCompatActivity {
                     }
                 });
 
+                //Deletes the note form selected day
                 DeleteNote.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -89,8 +103,8 @@ public class NotesActivity extends AppCompatActivity {
         };
     }
 
+    //Loads HashMap data from SharedPreferences
     public void loadData(){
-        //Lataa HashMapin tiedot sharedPrefrencestä
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("notes list", null);
@@ -102,8 +116,8 @@ public class NotesActivity extends AppCompatActivity {
         }
     }
 
+    //Saves HashMap data to SharedPreferences
     public void saveData(){
-        //Tallentaa HashMapin tiedot sharedPrefrenceen
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();

@@ -42,7 +42,7 @@ public class SleepActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SleepActivity.this, R.layout.listview_style, addArray);
         showSleep.setAdapter(adapter);
 
-        //Ominaisuus jolla voi poistaa ListView-kohteen
+        //Long click on a ListView item shows an AlertDialog where you can delete the item
         showSleep.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -61,6 +61,8 @@ public class SleepActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Starts the timer and sets a base time from SystemClock
     public void startTimer(View v){
         if(!run){
             wakeNow.setVisibility(View.VISIBLE);
@@ -71,6 +73,7 @@ public class SleepActivity extends AppCompatActivity {
         }
     }
 
+    //Stops the timer, calculates the slept time and displays the time to readable state in the ListView
     public void stopTimer(View v){
         if(run){
             timer.stop();
@@ -96,6 +99,8 @@ public class SleepActivity extends AppCompatActivity {
         }
     }
 
+    //When onStop method is called the base time and the state of "run" are saved in SharedPreferences
+    //Prevents the possibility for user exiting the application and erasing the base time
     protected void onStop(){
         super.onStop();
         SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
@@ -105,6 +110,7 @@ public class SleepActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    //When onStart method is called the base time and the state of "run" are loaded from SharedPreferences
     protected void onStart(){
         super.onStart();
         SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
@@ -122,6 +128,7 @@ public class SleepActivity extends AppCompatActivity {
         }
     }
 
+    //Converts the ArrayList to Json and saves the Json string to SharedPreferences
     private void saveArray(){
         SharedPreferences sp = getSharedPreferences("ArrayList", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -131,6 +138,7 @@ public class SleepActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    //Loads the ArrayList from SharedPreferences and converts it from Json
     private void loadArray(){
         SharedPreferences sp = getSharedPreferences("ArrayList", MODE_PRIVATE);
         Gson gson = new Gson();

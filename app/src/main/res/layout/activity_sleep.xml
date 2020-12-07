@@ -28,33 +28,46 @@
         app:layout_constraintVertical_bias="0.908" />
 
     <Button
-        android:id="@+id/wakeButton"
-        android:layout_width="367dp"
-        android:layout_height="87dp"
+        android:id="@+id/sleepButton"
+        android:layout_width="244dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
-        android:onClick="stopTimer"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="Wake now"
+        android:onClick="startTimer"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/sleep_now"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/sleepButton"
-        android:layout_width="367dp"
-        android:layout_height="87dp"
+        android:id="@+id/wakeButton"
+        android:layout_width="244dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
-        android:onClick="startTimer"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="Sleep now"
+        android:onClick="stopTimer"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/wake_now"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toSounds"
+        android:layout_width="110dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/calming_sounds"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

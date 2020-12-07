@@ -3,4 +3,11 @@
     <string name="set_alarm">Set Alarm</string>
     <string name="cancel_alarm">Cancel Alarm</string>
     <string name="no_alarm">Alarm is not set</string>
+    <string name="choose_date">Choose a date first</string>
+    <string name="write_note">Write a note here</string>
+    <string name="save_note">Save note</string>
+    <string name="delete_note">delete note</string>
+    <string name="sleep_now">Sleep now</string>
+    <string name="wake_now">Wake now</string>
+    <string name="calming_sounds">Calming sounds</string>
 </resources>
