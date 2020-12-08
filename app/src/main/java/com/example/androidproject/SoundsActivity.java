@@ -19,7 +19,6 @@ public class SoundsActivity extends AppCompatActivity {
     ArrayList<String> arrayList;
     ArrayAdapter soundAdapter;
     MediaPlayer soundPlayer;
-    Button stopSound;
     Button resumeSound;
     Button pauseSound;
     int pause;
@@ -32,8 +31,6 @@ public class SoundsActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sounds);
 
@@ -45,7 +42,7 @@ public class SoundsActivity extends AppCompatActivity {
             arrayList.add(sounds[i].getName());
         }
         //sets arraylist sound names into an array layout
-        soundAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+        soundAdapter = new ArrayAdapter(this, R.layout.listview_style2, arrayList);
         soundListView.setAdapter(soundAdapter);
         //when something is clicked in an array, voice is being played
         soundListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,16 +56,8 @@ public class SoundsActivity extends AppCompatActivity {
                 soundPlayer = MediaPlayer.create(SoundsActivity.this, soundNumber);
                 soundPlayer.setLooping(true);
                 soundPlayer.start();
-
-            }
-        });
-        stopSound = (Button) findViewById(R.id.stopButton);
-        stopSound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                soundPlayer.stop();
-                //releasing mediaplayer increases battery duration.
-                soundPlayer.release();
+                pauseSound.setVisibility(View.VISIBLE);
+                resumeSound.setVisibility(View.INVISIBLE);
             }
         });
         //finds the timeframe when soundfile was paused at and starts playing from there.
@@ -78,6 +67,8 @@ public class SoundsActivity extends AppCompatActivity {
             public void onClick(View v){
                 soundPlayer.seekTo(pause);
                 soundPlayer.start();
+                resumeSound.setVisibility(View.INVISIBLE);
+                pauseSound.setVisibility(View.VISIBLE);
             }
         });
         //pauses current sound and saves the current position of mediaplayer.
@@ -87,24 +78,20 @@ public class SoundsActivity extends AppCompatActivity {
             public void onClick(View v){
                 soundPlayer.pause();
                 pause = soundPlayer.getCurrentPosition();
+                resumeSound.setVisibility(View.VISIBLE);
+                pauseSound.setVisibility(View.INVISIBLE);
             }
         });
     }
-    //sound keeps playing when home button is pressed and/or screen is black after pressing power button.
-    public void onPause(){
-        super.onPause();
-        soundPlayer.isLooping();
-    }
-    public void onStop(){
-        super.onStop();
-        soundPlayer.isLooping();
-    }
+
      /**sound stops when back button is pressed and mediaplayer is released decreasing battery usage.
      back button has release feature because if user plays sounds on it and presses pause and closes the app without pressing stop, mediaplayer is never released and uses battery.
      */
     public void onDestroy(){
         super.onDestroy();
-        soundPlayer.stop();
-        soundPlayer.release();
+        if (soundPlayer != null) {
+            soundPlayer.stop();
+            soundPlayer.release();
+        }
     }
 }

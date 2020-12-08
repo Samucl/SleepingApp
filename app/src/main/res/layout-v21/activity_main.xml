@@ -33,7 +33,8 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:scaleType="centerInside"
-            android:contentDescription="@string/imageButton" />
+            app:srcCompat="@drawable/alarmpng"
+            android:contentDescription="@string/imageButton"/>
         <ImageView
             android:id="@+id/toSleep"
             android:layout_width="281dp"
@@ -42,6 +43,7 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:scaleType="centerInside"
+            app:srcCompat="@drawable/sleeppng"
             android:contentDescription="@string/imageButton" />
         <ImageView
             android:id="@+id/toNotes"
@@ -51,6 +53,7 @@
             android:layout_rowWeight="1"
             android:layout_gravity="fill"
             android:scaleType="centerInside"
+            app:srcCompat="@drawable/notespng"
             android:contentDescription="@string/imageButton" />
 
     </GridLayout>

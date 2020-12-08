@@ -19,6 +19,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * This class has methods for starting and stopping a chronometer, also for saving and loading an ArrayList
+ * A time called "offset" is calculated with SystemClock (When the start and stop methods are called) and is saved to the ArrayList
+ * A boolean run is used to determine when the timer is running.
+ * Both the time and boolean are saved when the application is closed.
+ * @author Samuel Laisaar
+ * @version 8.12.2020
+ */
+
 public class SleepActivity extends AppCompatActivity {
 
     private Chronometer timer;
@@ -30,52 +39,46 @@ public class SleepActivity extends AppCompatActivity {
     private ListView showSleep;
     private Button sounds;
 
+    /**
+     * A button for moving to the SoundsActivity.
+     * Long click on the "showSleep" ListView item shows an AlertDialog where you can delete the item.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
         timer = findViewById(R.id.timer);
-        showSleep = (ListView)findViewById(R.id.listView);
-        sleepNow = (Button)findViewById(R.id.sleepButton);
-        wakeNow = (Button)findViewById(R.id.wakeButton);
+        showSleep = findViewById(R.id.listView);
+        sleepNow = findViewById(R.id.sleepButton);
+        wakeNow = findViewById(R.id.wakeButton);
 
         loadArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SleepActivity.this, R.layout.listview_style, addArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SleepActivity.this, R.layout.listview_style, addArray);
         showSleep.setAdapter(adapter);
 
         sounds = findViewById(R.id.toSounds);
-        sounds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SleepActivity.this, SoundsActivity.class));
-            }
-        });
+        sounds.setOnClickListener(v -> startActivity(new Intent(SleepActivity.this, SoundsActivity.class)));
 
-
-        //Long click on a ListView item shows an AlertDialog where you can delete the item
-        showSleep.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final int item = position;
-                new AlertDialog.Builder(SleepActivity.this).setTitle("Do you want to delete this item?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                addArray.remove(item);
-                                showSleep.invalidateViews();
-                                saveArray();
-                            }
-                        })
-                        .setNegativeButton("No", null).show();
-                return true;
-            }
+        showSleep.setOnItemLongClickListener((parent, view, position, id) -> {
+            final int item = position;
+            new AlertDialog.Builder(SleepActivity.this).setTitle("Do you want to delete this item?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        addArray.remove(item);
+                        showSleep.invalidateViews();
+                        saveArray();
+                    })
+                    .setNegativeButton("No", null).show();
+            return true;
         });
     }
-
-    //Starts the timer and sets a base time from SystemClock
+    /**
+     * Changes the visibility of buttons.
+     * Starts the timer and sets a base time from SystemClock
+     */
     public void startTimer(View v){
         if(!run){
+            sounds.setVisibility(View.VISIBLE);
             wakeNow.setVisibility(View.VISIBLE);
             sleepNow.setVisibility(View.INVISIBLE);
             timer.setBase(SystemClock.elapsedRealtime());
@@ -84,10 +87,15 @@ public class SleepActivity extends AppCompatActivity {
         }
     }
 
-    //Stops the timer, calculates the slept time and displays the time to readable state in the ListView
+    /**
+     * Stops the timer.
+     * Changes the visibility of buttons.
+     * Determines the current day, calculates the slept time and displays date and time in a readable format in the ListView.
+     */
     public void stopTimer(View v){
         if(run){
             timer.stop();
+            sounds.setVisibility(View.INVISIBLE);
             sleepNow.setVisibility(View.VISIBLE);
             wakeNow.setVisibility(View.INVISIBLE);
             offset = SystemClock.elapsedRealtime() - timer.getBase();
@@ -110,8 +118,10 @@ public class SleepActivity extends AppCompatActivity {
         }
     }
 
-    //When onStop method is called the base time and the state of "run" are saved in SharedPreferences
-    //Prevents the possibility for user exiting the application and erasing the base time
+    /**
+     * When onStop method is called the base time and the state of "run" are saved in SharedPreferences.
+     * Prevents the possibility for user exiting the application in which case the base time and "run" are lost.
+     */
     protected void onStop(){
         super.onStop();
         SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
@@ -120,8 +130,10 @@ public class SleepActivity extends AppCompatActivity {
         editor.putBoolean("running", run);
         editor.apply();
     }
-
-    //When onStart method is called the base time and the state of "run" are loaded from SharedPreferences
+    /**
+     * When onStart method is called the base time and the state of "run" are loaded from SharedPreferences
+     * Also the state of run determines which buttons are visible.
+     */
     protected void onStart(){
         super.onStart();
         SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
@@ -132,14 +144,18 @@ public class SleepActivity extends AppCompatActivity {
             offset = SystemClock.elapsedRealtime() - timer.getBase();
             wakeNow.setVisibility(View.VISIBLE);
             sleepNow.setVisibility(View.INVISIBLE);
+            sounds.setVisibility(View.VISIBLE);
         }
-        else if(!run){
+        else{
             wakeNow.setVisibility(View.INVISIBLE);
             sleepNow.setVisibility(View.VISIBLE);
+            sounds.setVisibility(View.INVISIBLE);
         }
     }
 
-    //Converts the ArrayList to Json and saves the Json string to SharedPreferences
+    /**
+     * Converts the ArrayList to Json and saves the Json string to SharedPreferences
+     */
     private void saveArray(){
         SharedPreferences sp = getSharedPreferences("ArrayList", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -148,8 +164,9 @@ public class SleepActivity extends AppCompatActivity {
         editor.putString("task arraylist", json);
         editor.apply();
     }
-
-    //Loads the ArrayList from SharedPreferences and converts it from Json
+    /**
+     * Loads the ArrayList from SharedPreferences and converts it from Json
+     */
     private void loadArray(){
         SharedPreferences sp = getSharedPreferences("ArrayList", MODE_PRIVATE);
         Gson gson = new Gson();
