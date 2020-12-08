@@ -3,7 +3,6 @@ package com.example.androidproject;
 import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.media.MediaPlayer;
@@ -28,26 +27,23 @@ public class NotificationHelper extends ContextWrapper {
     private NotificationManager manager;
     public MediaPlayer alarmSoundPlayer;
 
+    /**
+     * API-level check
+     */
     public NotificationHelper(Context base) {
         super(base);
-
-        /**
-         * API-level check
-         */
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             createChannel();
         }
     }
 
+    /**
+     * this method creates a channel for notification and sets a sound to play when notification happens
+     * CountDownTimer sets how long the alarm sound will play, in milliseconds. When the sound ends, it also releases the MediaPlayer.
+     * sound is set using MediaPlayer and Uri to choose the soundtrack and to loop it.
+     */
     @TargetApi(Build.VERSION_CODES.O)
     public void createChannel() {
-
-        /**
-         * this method creates a channel for notification and sets a sound to play when notification happens
-         * CountDownTimer sets how long the alarm sound will play, in milliseconds. When the sound ends, it also releases the MediaPlayer.
-         * sound is set using MediaPlayer and Uri to choose the soundtrack and to loop it.
-         */
 
             NotificationChannel channel = new NotificationChannel(channel_ID, channel_name, NotificationManager.IMPORTANCE_HIGH);
 
@@ -75,12 +71,11 @@ public class NotificationHelper extends ContextWrapper {
             getManager().createNotificationChannel(channel);
     }
 
+    /**
+     * creates notification if there is none set yet
+     * called in AlertReceiver and in createChannel().
+     */
     public NotificationManager getManager() {
-
-        /**
-         * creates notification if there is none set yet
-         * called in AlertReceiver and in createChannel().
-         */
 
         if (manager == null) {
             manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -88,12 +83,11 @@ public class NotificationHelper extends ContextWrapper {
         return manager;
     }
 
+    /**
+     * this method sets some small customizations for notification, title, text and an icon.
+     * this is also called in AlertReceiver
+     */
     public NotificationCompat.Builder getNotification() {
-
-        /**
-         * this method sets some small customizations for notification, title, text and an icon.
-         * this is also called in AlertReceiver
-         */
 
         return new NotificationCompat.Builder(getApplicationContext(), channel_ID)
                 .setContentTitle("Herätyskello")

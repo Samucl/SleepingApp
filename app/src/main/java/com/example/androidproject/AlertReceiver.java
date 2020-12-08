@@ -3,13 +3,13 @@ package com.example.androidproject;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-
 import androidx.core.app.NotificationCompat;
 
 /**
  * This class builds notification for the alarm, using NotificationHelper class that creates the notification
  * this class is called in AlarmActivity when the alarm happens (alarmIntent).
+ * @author Juuso Lahtinen
+ * @version 8.12.2020
  */
 
 public class AlertReceiver extends BroadcastReceiver {
