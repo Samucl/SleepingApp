@@ -3,6 +3,7 @@ package com.example.androidproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -27,6 +28,7 @@ public class SleepActivity extends AppCompatActivity {
     private Button wakeNow;
     private ArrayList<String> addArray;
     private ListView showSleep;
+    private Button sounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,15 @@ public class SleepActivity extends AppCompatActivity {
         loadArray();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SleepActivity.this, R.layout.listview_style, addArray);
         showSleep.setAdapter(adapter);
+
+        sounds = findViewById(R.id.toSounds);
+        sounds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SleepActivity.this, SoundsActivity.class));
+            }
+        });
+
 
         //Long click on a ListView item shows an AlertDialog where you can delete the item
         showSleep.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

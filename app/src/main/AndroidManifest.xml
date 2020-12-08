@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject">
         <activity
+            android:name=".SoundsActivity"
+            android:parentActivityName=".SleepActivity" />
+        <activity
             android:name=".NotesActivity"
             android:parentActivityName=".MainActivity" />
         <activity

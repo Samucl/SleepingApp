@@ -10,4 +10,7 @@
     <string name="sleep_now">Sleep now</string>
     <string name="wake_now">Wake now</string>
     <string name="calming_sounds">Calming sounds</string>
+    <string name="resumeButton">Resume</string>
+    <string name="stopButton">Stop</string>
+    <string name="pauseButton">Pause</string>
 </resources>
