@@ -11,6 +11,13 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
+/**
+ * this class is for getting exact current time, and returning that when called.
+ * AlarmActivity-class calls this when user chooses time with time picker.
+ * @author Juuso Lahtinen
+ * @version 8.12.2020
+ */
+
 public class TimePicker extends DialogFragment {
 
     @NonNull
