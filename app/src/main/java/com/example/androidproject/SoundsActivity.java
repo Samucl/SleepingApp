@@ -23,11 +23,12 @@ public class SoundsActivity extends AppCompatActivity {
     Button pauseSound;
     int pause;
     /**
+     * @Author Leo Lehtiö.
+     * @Version 10.12.2020
      * arrayList created and sounds added from raw file to the arrayList.
      * items from arrayList are displayed in arrayList layout.
      * when soundName is clicked on arrayList sound starts playing and it finds the matching sound for the soundName.
      * pauseButton saves the current position of mediaPlayer and when resumeButton is pressed, sound continues from that position.
-     * stopButton stops the sound and releases mediaPlayer for battery saving purposes.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +36,22 @@ public class SoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sounds);
 
         soundListView = findViewById(R.id.soundListView);
-        //arraylist created and sounds are added to the arraylist.
+
         arrayList = new ArrayList<String>();
         Field[] sounds = R.raw.class.getFields();
         for (int i = 0; i < sounds.length; i++) {
             arrayList.add(sounds[i].getName());
         }
-        //sets arraylist sound names into an array layout
         soundAdapter = new ArrayAdapter(this, R.layout.listview_style2, arrayList);
         soundListView.setAdapter(soundAdapter);
-        //when something is clicked in an array, voice is being played
+
         soundListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 if (soundPlayer != null) {
                     soundPlayer.release();
                 }
-                //finds the correct sound for specific name and sound is being looped so it can be listened whilst trying to sleep.
+                //finds the correct sound for specific name and sound is being looped so it can be listened whilst trying to sleep but if app is closed sound stops.
                 int soundNumber = getResources().getIdentifier(arrayList.get(i), "raw", getPackageName());
                 soundPlayer = MediaPlayer.create(SoundsActivity.this, soundNumber);
                 soundPlayer.setLooping(true);
@@ -60,7 +60,7 @@ public class SoundsActivity extends AppCompatActivity {
                 resumeSound.setVisibility(View.INVISIBLE);
             }
         });
-        //finds the timeframe when soundfile was paused at and starts playing from there.
+
         resumeSound = (Button) findViewById(R.id.resumeButton);
         resumeSound.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -71,7 +71,7 @@ public class SoundsActivity extends AppCompatActivity {
                 pauseSound.setVisibility(View.VISIBLE);
             }
         });
-        //pauses current sound and saves the current position of mediaplayer.
+
         pauseSound = (Button) findViewById(R.id.pauseButton);
         pauseSound.setOnClickListener(new View.OnClickListener(){
             @Override
