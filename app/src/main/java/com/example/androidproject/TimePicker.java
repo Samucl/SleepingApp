@@ -14,8 +14,10 @@ import java.util.Calendar;
 /**
  * this class is for getting exact current time, and returning that when called.
  * AlarmActivity-class calls this when user chooses time with time picker.
+ * Marked source, as this class is mainly taken from the internet. It is a part of a tutorial that's been studied.
  * @author Juuso Lahtinen
  * @version 8.12.2020
+ * @source https://codinginflow.com/tutorials/android/timepickerdialog
  */
 
 public class TimePicker extends DialogFragment {

@@ -27,11 +27,10 @@ public class NotificationHelper extends ContextWrapper {
     private NotificationManager manager;
     public MediaPlayer alarmSoundPlayer;
 
-    /**
-     * API-level check
-     */
+
     public NotificationHelper(Context base) {
         super(base);
+        //API-level check
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             createChannel();
         }

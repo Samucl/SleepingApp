@@ -23,8 +23,8 @@ public class SoundsActivity extends AppCompatActivity {
     Button pauseSound;
     int pause;
     /**
-     * @Author Leo Lehtiö.
-     * @Version 10.12.2020
+     * @author Leo Lehtiö.
+     * @version 10.12.2020
      * arrayList created and sounds added from raw file to the arrayList.
      * items from arrayList are displayed in arrayList layout.
      * when soundName is clicked on arrayList sound starts playing and it finds the matching sound for the soundName.

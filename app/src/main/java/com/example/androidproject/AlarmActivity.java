@@ -100,7 +100,7 @@ public class AlarmActivity extends AppCompatActivity implements OnTimeSetListene
     /**
      * creates AlarmManager that allows something to happen at a given time, in this case an alarm sound.
      * At this given time, new Intent gets data from AlertReceiver class, that creates what should happen at the given time.
-     * pendingIntent allows alarmIntent to happen even if app is killed.
+     * pendingIntent allows alarmIntent to happen even if app is killed or destroyed.
      * if-statement adds +1 day if user chose past time. example: time is 13.00, user chooses alarm for 12.30, it will happen the next day at 12.30.
      *
      * alarmManager then uses setExact to start the alarm: gets the time from calendar-variable, when that time comes it calls for pendingIntent
