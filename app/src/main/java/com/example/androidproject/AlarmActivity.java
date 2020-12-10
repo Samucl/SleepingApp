@@ -29,7 +29,7 @@ import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity implements OnTimeSetListener {
 
-    private TextView AlarmTextView;
+    private TextView alarmTextView;
 
     /**
      * Makes the AlarmActivity background animated.
@@ -49,7 +49,7 @@ public class AlarmActivity extends AppCompatActivity implements OnTimeSetListene
         animationDrawable.setExitFadeDuration(2000);
         animationDrawable.start();
 
-        AlarmTextView = findViewById(R.id.textViewAlarmStatus);
+        alarmTextView = findViewById(R.id.textViewAlarmStatus);
 
         Button buttonTimePicker = findViewById(R.id.button_setAlarm);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class AlarmActivity extends AppCompatActivity implements OnTimeSetListene
         String time = "Alarm is set for: ";
         time += DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
 
-        AlarmTextView.setText(time);
+        alarmTextView.setText(time);
     }
 
     /**
@@ -132,6 +132,6 @@ public class AlarmActivity extends AppCompatActivity implements OnTimeSetListene
         alarmManager.cancel(pendingIntent);
         Toast.makeText(AlarmActivity.this, "Alarm was cancelled", Toast.LENGTH_SHORT).show();
 
-        AlarmTextView.setText("Alarm is not set");
+        alarmTextView.setText("Alarm is not set");
     }
 }

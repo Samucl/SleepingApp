@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+/**
+ * This class has three buttons that creates a toast message, and two separate DialogBoxes: rating and FAQ. Uses sharedPreferences to save rating.
+ * @author Miikka Selander
+ * @version 9.12.2020
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     private Button rateButton;
