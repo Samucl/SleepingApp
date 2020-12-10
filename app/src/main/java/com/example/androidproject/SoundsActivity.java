@@ -13,6 +13,15 @@ import android.widget.ListView;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+/**
+ * @author Leo Lehtiö.
+ * @version 10.12.2020
+ * arrayList created and sounds added from raw file to the arrayList.
+ * items from arrayList are displayed in arrayList layout.
+ * when soundName is clicked on arrayList sound starts playing and it finds the matching sound for the soundName.
+ * pauseButton saves the current position of mediaPlayer and when resumeButton is pressed, sound continues from that position.
+ */
+
 public class SoundsActivity extends AppCompatActivity {
 
     ListView soundListView;
@@ -22,14 +31,7 @@ public class SoundsActivity extends AppCompatActivity {
     Button resumeSound;
     Button pauseSound;
     int pause;
-    /**
-     * @author Leo Lehtiö.
-     * @version 10.12.2020
-     * arrayList created and sounds added from raw file to the arrayList.
-     * items from arrayList are displayed in arrayList layout.
-     * when soundName is clicked on arrayList sound starts playing and it finds the matching sound for the soundName.
-     * pauseButton saves the current position of mediaPlayer and when resumeButton is pressed, sound continues from that position.
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +86,9 @@ public class SoundsActivity extends AppCompatActivity {
         });
     }
 
-     /**sound stops when back button is pressed and mediaplayer is released decreasing battery usage.
-     back button has release feature because if user plays sounds on it and presses pause and closes the app without pressing stop, mediaplayer is never released and uses battery.
+     /**
+      * sound stops when back button is pressed and mediaplayer is released decreasing battery usage.
+      * back button has release feature because if user plays sounds on it and presses pause and closes the app without pressing stop, mediaplayer is never released and uses battery.
      */
     public void onDestroy(){
         super.onDestroy();
