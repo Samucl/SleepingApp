@@ -16,14 +16,15 @@
         android:columnCount="1">
 
         <ImageView
+            android:id="@+id/toSettings"
             android:layout_width="286dp"
             android:layout_height="1dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
+            android:contentDescription="@string/imageButton"
             android:scaleType="fitStart"
-            app:srcCompat="@drawable/logo"
-            android:contentDescription="@string/imageButton" />
+            app:srcCompat="@drawable/logo" />
 
         <ImageView
             android:id="@+id/toAlarm"

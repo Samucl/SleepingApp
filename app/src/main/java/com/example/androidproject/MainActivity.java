@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView toNotes;
     private ImageView toSleep;
     private ImageView toAlarm;
+    private ImageView toSettings;
 
     /**
      * Hides the ActionBar and makes the background animated.
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         toAlarm = findViewById(R.id.toAlarm);
         toAlarm.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AlarmActivity.class);
+            startActivity(intent);
+        });
+
+        toSettings = findViewById(R.id.toSettings);
+        toSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), SettingsActivity.class);
             startActivity(intent);
         });
     }
